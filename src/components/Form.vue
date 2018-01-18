@@ -26,9 +26,9 @@ export default {
   computed: {
     warningText() {
       if (this.pubKey.length === 0) {
-        return "Please enter a valid public key";
+        return "Please enter a valid wallet address";
       } else if (this.pubKey.length !== 97) {
-        return "Invalid Public Key";
+        return "Invalid wallet address";
       } else {
       }
     }
