@@ -8,7 +8,7 @@ import createLogger from 'vuex/dist/logger'
 Vue.use(Vuex)
 
 const state = {
-  publicKey: 'heUeV56dGhXWF6W14QC2rKgpPSFFcnQfxHnfRvTriwRDd7c6GsMfzVuD4Skma53vSgMnv9WDYcTPeUNDHXDMJJNy34JUy7Kuj',
+  publicKey: '',
   difficulty: 46272805830,
   blockReward: 5.61,
   throttle: 0.95,
