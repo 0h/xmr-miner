@@ -6,17 +6,17 @@
 
 <script>
 export default {
-  name: 'app',
-  data () {
+  name: "app",
+  data() {
     return {
       user: this.$store.state.user,
-      test: 'XMR'
-    }
+      test: "HRT"
+    };
   },
   mounted() {
     // console.log('>>>> App mounted:', this)
-  },
-}
+  }
+};
 </script>
 
 <style>
@@ -24,14 +24,15 @@ html {
   font-size: 110%;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

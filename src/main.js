@@ -3,11 +3,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Miner from './lib/miner'
 import vueConfig from './lib/mixins/config'
 
 const configs = {
-  siteKey: 's0N1th4I4ElExw1U3JlqGVTjZR428Nyq' // TODO: use config file
+  siteKey: store.state.publicKey
 }
 
 Vue.use(vueConfig, configs)
@@ -18,8 +17,7 @@ new Vue({
   store,
   router,
   template: '<App/>',
-  components: { App },
-  mounted: function () {
-    Miner(CoinHive, this)
+  components: {
+    App
   }
 })

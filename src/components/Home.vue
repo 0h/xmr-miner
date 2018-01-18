@@ -9,7 +9,7 @@
         Total: {{stats.totalHashes}}, Accepted: {{stats.acceptedHashes}}
        </div>
        <h5 class="difficulty">
-         1 XMR: ~{{avgBlockTime.years}} yrs (w/ difficulty: 46B) <a target="_blank" href="https://www.reddit.com/r/MoneroMining/wiki/index">(info)</a>
+         1 HRT: ~{{avgBlockTime.years}} yrs <a target="_blank" href="http://heartproject.io">(info)</a>
        </h5>
     </p>
     <p id="slider-wrapper">
@@ -20,7 +20,7 @@
     </p>
     <div id="console" class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">xmr-miner@localhost </h3>
+        <h3 class="panel-title">heart-miner@localhost </h3>
       </div>
       <div class="panel-body">
         <div class="" v-for="item in messages">
@@ -35,10 +35,11 @@
 </template>
 
 <script>
-import D3Network from 'vue-d3-network'
-import 'keen-ui/dist/keen-ui.css'
-import { UiSlider, UiProgressCircular, UiProgressLinear } from 'keen-ui'
-import store from '../store'
+import Miner from "../lib/miner";
+import D3Network from "vue-d3-network";
+import "keen-ui/dist/keen-ui.css";
+import { UiSlider, UiProgressCircular, UiProgressLinear } from "keen-ui";
+import store from "../store";
 
 export default {
   components: {
@@ -49,87 +50,93 @@ export default {
   },
   computed: {
     progress: {
-      get: function(){
-        return this.$store.state.minerProgress
+      get: function() {
+        return this.$store.state.minerProgress;
       }
     },
     stats: {
-      get: function(){
-        return this.$store.state.stats
+      get: function() {
+        return this.$store.state.stats;
       }
     },
     avgBlockTime: {
-      get: function(){
-        const { hashRate } = this.$store.state.stats
-        const { difficulty, blockReward } = this.$store.state
-        const hours = (difficulty / hashRate) / 3600
-        const days = hours / 24
-        const years = Math.round(days / 365 / blockReward)
-        return { years, days: Math.round(days - (years * 365)), hours: 4 }
+      get: function() {
+        const { hashRate } = this.$store.state.stats;
+        const { difficulty, blockReward } = this.$store.state;
+        const hours = difficulty / hashRate / 3600;
+        const days = hours / 24;
+        const years = Math.round(days / 365 / blockReward);
+        return { years, days: Math.round(days - years * 365), hours: 4 };
       }
     }
-
   },
-  data () {
+  data() {
     return {
       difficulty: store.state.difficulty,
       slider: (1 - store.state.throttle).toFixed(2) * 100,
-      title: 'Monero Mine',
+      title: "Heart Miner",
       nodes: this.$store.state.nodes,
       messages: this.$store.state.messages,
       links: [],
-      options:
-      {
-        size: { h: 350},
+      options: {
+        size: { h: 350 },
         force: 160,
         nodeSize: 7,
         nodeLabels: false,
         linkWidth: 5
       }
-    }
+    };
   },
   methods: {
-    updateThrottle: function (data) {
-      const throttle = (1 - (data / 100).toFixed(2))
-      store.state.throttle = throttle
+    updateThrottle: function(data) {
+      const throttle = 1 - (data / 100).toFixed(2);
+      store.state.throttle = throttle;
+    }
+  },
+  mounted: function() {
+    if (store.state.publicKey.length === 97) {
+      Miner(this);
+    } else {
+      this.$router.go(-1);
     }
   }
-}
+};
 </script>
 
 <style lang="css">
-  .panel-body {
-    font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
-    font-size: 12px;
-    text-align: left;
-    color: #2bf22b;
-    background-color: #000;
-  }
-  #log-header {
-    color: #000;
-  }
-  #slider-label {
-    margin-right: 1em;
-    float: left;
-  }
-  #slider-wrapper {
-    margin: auto;
-    max-width: 320px;
-    margin-bottom: 1em;
-  }
-  #totals {
-    max-width: 400px;
-    margin:auto;
-  }
-  .miner-progress {
-    display: inline;
-    margin-right: 4px;
-  }
-  #console {
-    position: absolute;
-    bottom: 1px;
-    left: 2px;
-    max-height: 300px;
-    max-width: 320px;
-  }
+.panel-body {
+  font-family: "Lucida Console", "Lucida Sans Typewriter", monaco,
+    "Bitstream Vera Sans Mono", monospace;
+  font-size: 12px;
+  text-align: left;
+  color: #2bf22b;
+  background-color: #000;
+}
+#log-header {
+  color: #000;
+}
+#slider-label {
+  margin-right: 1em;
+  float: left;
+}
+#slider-wrapper {
+  margin: auto;
+  max-width: 320px;
+  margin-bottom: 1em;
+}
+#totals {
+  max-width: 400px;
+  margin: auto;
+}
+.miner-progress {
+  display: inline;
+  margin-right: 4px;
+}
+#console {
+  position: absolute;
+  bottom: 1px;
+  left: 2px;
+  max-height: 300px;
+  max-width: 320px;
+}
 </style>

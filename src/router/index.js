@@ -1,25 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
-import Test from '../components/Test'
+import Form from '../components/Form'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
+      name: 'Form',
+      component: Form
+    },
+    {
+      path: '/miner',
       name: 'Home',
-      component: Home
-    },
-    {
-      path: '/test',
-      name: 'Hello',
-      component: Test
-    },
-    {
-      path: '/post/:num',
-      name: 'Post',
       component: Home
     }
   ]
