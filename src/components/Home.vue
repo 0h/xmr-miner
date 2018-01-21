@@ -9,7 +9,7 @@
         Total: {{stats.totalHashes}}, Accepted: {{stats.acceptedHashes}}
        </div>
        <h5 class="difficulty">
-         1 HRT: ~{{avgBlockTime.years}} yrs <a target="_blank" href="http://heartproject.io">(info)</a>
+         <a target="_blank" href="http://heartproject.io">(info)</a>
        </h5>
     </p>
     <p id="slider-wrapper">
